@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+      <title>Document</title>
+      <style>
+            * {
+                  cursor: none;
+            }
+
+            #cursor {
+                  pointer-events: none;
+                  width: 20px;
+                  height: 20px;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  display: none;
+                  background: #ff3b7f;
+                  border-radius: 100%;
+                  transition: linear height 0.2s, linear width 0.2s;
+            }
+
+            .hoveredCursor {
+                  width: 100px !important;
+                  height: 100px !important;
+                  border-radius: 100% !important;
+                  background-color: #000 !important;
+                  text-align: center;
+                  color: #fff;
+                  font-size: 1.9rem;
+                  vertical-align: middle;
+                  transition: 0.2s !important;
+            }
+
+            .hoveredCursor p {
+                  vertical-align: middle;
+            }
+
+            .hoveredCursor p::before {
+                  content: "Ver";
+            }
+
+            a {
+                  font-size: 20px;
+            }
+      </style>
+      <script>
+            $(document).mousemove(function (e) {
+
+                  const cursor = $('#cursor');
+                  const target = $(e.target);
+
+                  // update position of cursor
+                  cursor.css('left', e.clientX - 10).css('top', e.clientY - 10);
+
+                  const isLinkTag = target.is('a');
+                  const isHovered = cursor.hasClass('hoveredCursor');
+
+                  // toggle the cursor class if necessary 
+                  if (isLinkTag && !isHovered) {
+
+                        cursor.addClass('hoveredCursor');
+
+                  } else if (!isLinkTag && isHovered) {
+
+                        cursor.removeClass('hoveredCursor');
+
+                  }
+
+            });
+
+            $(document).mouseleave(function (e) {
+
+                  const cursor = $('#cursor');
+                  cursor.hide()
+
+            });
+
+            $(document).mouseenter(function (e) {
+
+                  const cursor = $('#cursor');
+                  cursor.show()
+
+            });
+      </script>
+</head>
+
+<body>
+
+      <div id="cursor">
+            <p></p>
+      </div>
+
+      <a href="#">This is a link</a>
+</body>
+
+</html>
